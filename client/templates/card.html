@@ -1,0 +1,44 @@
+<div class="col-md-6">
+	<div class="well well-sm">
+		<div class="row">
+			<div class="col-md-4">
+				<img ng-src="{{plato.image | defaultImage:'./avatar.png'}}"
+					alt=""
+					class="img-rounded img-responsive"/>
+			</div>
+			<div class="col-md-8">
+				<h4>{{plato.nombre}}
+					<i class="fa" ng-class="{'fa-female':plato.sex == 'F', 'fa-male': plato.sex == 'M'}"></i>
+				</h4>
+				<b>{{plato.precio}}
+					<i class="fa fa-map-marker"></i>
+				</b>
+				<p>
+					<i class="fa fa-envelope-o"></i>
+					{{plato.calorias}}
+					<br/>
+				</p>
+				<button type="button"
+						class="btn btn-default btn-sm"	
+						ng-click="editPlatoModal()(plato)">
+					<i class="fa fa-pencil"></i>&nbsp;Añadir Toppings
+				</button><br/>
+				<button type="button"
+					        class="btn btn-success btn-sm"
+					        ladda="isDeleting"
+							ng-click="extra.addPlatoCart(plato)">
+					<i class="fa fa-trash"></i>&nbsp;Agregar a Carrito
+				</button ><br/>
+				<button type="button"
+					        class="btn btn-danger btn-sm"
+					        ladda="isDeleting"
+							ng-click="extra.removePlatoCart(plato)">
+					<i class="fa fa-trash"></i>&nbsp;Quitar de Carrito
+				</button >
+				<!-- <mark  ng-show="inCart()">
+			        This item is in your cart. <a ng-click="extra.removeItemById()(plato)" style="cursor: pointer;">Remove</a>
+			    </mark> -->
+			</div>
+		</div>
+	</div>
+</div>

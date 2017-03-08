@@ -1,0 +1,28 @@
+<ng-include src="'templates/header.html'"></ng-include>
+<div class="platos-page">
+<div class="col-sm-14">
+	<div class="nosotros">
+		<div class="margen">
+			<h2>Disfrute de Nuestra Variedad de Platos Saludables</h2>
+		</div>
+	</div>
+	<div class="row">
+		<cc-card ng-repeat="plato in dishes.platos"
+				ng-style="{
+				 'background-color': plato.precio == dishes.selectedDish.precio ? 'lightgray' : ''
+				}"
+				plato="plato"></cc-card>		
+	</div>
+
+	<div ng-show="dishes.platos.length == 0 && !dishes.isLoading" >
+		<td colspan="4" >
+			<div class="alert alert-info" >
+				<p class="text-center" >No results found for search term '{{ search }}'</p >
+			</div >
+		</td >
+	</div >
+
+	<cc-spinner is-loading="dishes.isLoading" message="Mooing... "></cc-spinner>
+</div >
+</div>
+<ng-include src="'templates/footer.html'"></ng-include>

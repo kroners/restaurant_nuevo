@@ -1,0 +1,38 @@
+
+<div class="container">
+    <div class="login-page">
+            <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
+                <h3>¿No Tienes un cuenta? REGISTRATE!</h3>
+                <p>¿Tiempo limitado? ¿Estás Lejos? ¿Cansado de comida de dieta, pero con deseos de comer algo delicioso? Registrare con nosotros y ten pide nuestros platos por delivery!</p>
+                <a class="acount-btn btn btn-info" ui-sref="registrar">TU NUEVO ESTILO DE VIDA</a>
+            </div>
+            <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
+                <h3>Inicia Sesión en Sanurya</h3>
+            
+                <form class="form-horizontal"
+                      ng-submit="login()" method="POST"
+                      novalidate >
+                    <div class="login-input-group" >
+                        <div class="input-group">
+                        <span>Email<label>*</label></span>
+                        <input class="form-class" ng-model="users.loggingUser.email" 
+                                type="text" name="user" placeholder="Ingresa tu Email" required/> 
+                        </div>
+                    </div><br/>
+                    <div class="login-input-group" >
+                        <div class="input-group">
+                        <span>Contraseña<label>*</label></span>
+                        <input class="form-class" ng-model="users.loggingUser.password" 
+                                type="password" name="pass" placeholder="Escribe Contraseña" required/>
+                        </div>
+                    </div><br/>
+                    <!-- <a class="forgot" href="#">Forgot Your Password?</a> -->
+                    <button class="btn btn-success btn-sm"
+                            ladda="contacts.isSaving"
+                            type="submit" >Login </button>
+                </form>
+            </div>   
+            <div class="clearfix"> </div>
+        <!-- </div> -->
+    </div>
+</div>

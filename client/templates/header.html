@@ -1,0 +1,154 @@
+<!-- header-section-starts -->
+<nav class="show_web">
+	<div class="grupo">
+		<div class="caja total">
+			<div class="navigation">
+				<ul class="navbar-left">
+					<li class="item"><a href="#">Nosotros</a></li>
+					<li class="item"><a href="#">Nuestros Platos</a></li>
+				</ul>
+				<ul class="navbar-center">
+					<li class="logo">
+						<a ui-sref="home"><img src="images/oie_transparent.png"></a>
+					</li>
+				</ul>
+				<ul class="navbar-right">
+					<li class="item"><a href="#">Vida Saludable</a></li>
+					<li class="item"><a href="#">Contáctanos</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="login">
+		<div id="botonLogin" ng-if="!users.logged">
+			Iniciar Sesión <i class="fa fa-user"></i>
+			<div id="sectionLogin">
+				<div class="btnIngresar">
+					<a ui-sref="login">Ingresar</a>
+				</div>
+				<div class="textRegister">
+					<p>¿No tienes una cuenta?</p>
+					<a ui-sref="registrar">¡Únete Ahora!</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="logged" ng-if="users.logged">
+			Hola! {{users.sessionUser.nombre}} <i class="fa fa-user"></i>
+			<a ui-sref='orden'>
+				<cart-summary></cart-summary>
+			</a>
+			<div id="sectionLogin">
+				<div class="btnIngresar">
+					<a ui-sref="login">Ingresar</a>
+				</div>
+				<div class="textRegister">
+					<p>¿No tienes una cuenta?</p>
+					<a ui-sref="registrar">¡Únete Ahora!</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- MOBILE VIEW BELOW -->
+<nav class="show_mobile">
+    <div class="grupo">
+        <div class="caja total">
+    		<div class="navigation">
+            	<ul class="navbar-left">
+              		<button class="site-nav-toggle" style="background-color: transparent; border: 0px; color: white; margin-top: 14px;">
+                		<i class="fa fa-bars fa-2x"></i>
+              		</button>
+              <!--<li class="item"><a href="http://imelda.pe/nosotros">Nosotros</a></li>
+              <li class="item"><a href="http://imelda.pe/imeldos">Imeldos</a></li>
+              <li class="item"><a href="http://imelda.pe/crea-tu-postre">Crea tu Postre</a></li>-->
+            	</ul>
+            	<ul class="navbar-center">
+              		<li class="logo"><a href=""><img src="images/oie_transparent.png"></a></li>
+            	</ul>
+            	<ul class="navbar-right">              
+ 				</ul>
+          </div>
+        </div>
+        <div class="_submenu">
+          <style>
+
+          </style>
+          <ul class="navbar-left2" style="list-style-type: none; background-color: rgba(1,1,1,.8); top: -4px; position: relative;">
+            <li class="item"><a href="http://imelda.pe/nosotros">Nosotros</a></li>
+            <li class="item"><a href="http://imelda.pe/imeldos">Imeldos</a></li>
+            <li class="item"><a href="http://imelda.pe/crea-tu-postre">Crea tu Postre</a></li>
+            <li class="item"><a href="http://imelda.pe/creaciones">Creaciones</a></li>
+            <!--<li class="item"><a href="#">Blog</a></li>-->
+            <!--<li class="item"><a>Creaciones</a></li>-->
+            <li class="item"><a href="http://imelda.pe/contactanos">Contáctanos</a></li>
+          </ul>
+        </div>
+    </div>
+    <div class="login">
+        <div id="botonLogin"> <i class="fa fa-user"></i>
+         	<div id="sectionLogin" ng-if="!users.logged">
+                <div class="btnIngresar">
+              		<a ui-sref="login">Ingresar</a>
+            	</div>
+            	<div class="textRegister">
+              		<p>¿No tienes una cuenta?</p>
+              		<a ui-sref="registrar">¡Únete Ahora!</a>
+            	</div>
+            </div>
+            <div id="sectionLogin" ng-if="users.logged">
+                <div class="btnIngresar">
+              		<a ui-sref="login">Ingresar</a>
+            	</div>
+            	<div class="textRegister">
+              		<p>¿No tienes una cuenta?</p>
+              		<a ui-sref="registrar">¡Únete Ahora!</a>
+            	</div>
+            </div>
+        </div>
+	</div>
+</nav>
+
+
+<!-- <div class="header">
+	<div class="header-top-strip">
+		<div class="container">
+			<div class="header-top-left">
+				<ul ng-if="!users.logged">
+					<li><a ui-sref="home"><span class="glyphicon glyphicon-user"> </span>Inicio</a></li>
+					<li><a ui-sref="login"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
+					<li><a ui-sref="registrar"><span class="glyphicon glyphicon-lock"> </span>Registrarse</a></li>		
+				</ul>
+				<ul ng-if="users.logged">
+					<li><a ui-sref="home"><span class="glyphicon glyphicon-user"> </span>Inicio</a></li>
+					<li><a ui-sref="#"><span class="glyphicon glyphicon-user"> </span></a></li>
+					<li><a ng-click='users.logoutUser()'><span class="glyphicon glyphicon-lock"> </span>Logout</a></li>	
+					<li><a ui-sref="pedidos"><span class="glyphicon glyphicon-user"> </span>Mis Pedidos</a></li>
+				</ul>
+			</div>
+			<div class="header-right">
+				<a ui-sref='orden' style="padding: 5px 0 0 0; width:150px" href="/cart">
+					<cart-summary></cart-summary>
+				</a>
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+	<div class="wrapper">
+		<div class="logo">
+			<a href=""><img src="img/logo.png" alt="Resto" title=""/></a>
+		</div>
+
+		<nav>
+			<ul>
+				<li><a href="" class="active">Home</a></li>
+				<li><a href="">Nosotros</a></li>
+				<li><a ui-sref="listPlatos">Nuestro Platos</a></li>
+				<li><a ui-sref="personalizados">Personalizados</a></li>
+				<li><a href="">Contacto</a></li>
+				<li><a href="">Ordena Aquí</a></li>
+			</ul>
+		</nav>
+	</div>
+</div> -->
+<!-- header-section-ends -->

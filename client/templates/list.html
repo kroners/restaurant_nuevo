@@ -1,0 +1,62 @@
+<div class="col-md-12">
+	<table class="table table-bordered"
+	       infinite-scroll="loadMore()"
+	       infinite-scroll-immediate-check="false"
+	       infinite-scroll-distance="1" >
+
+		<tr >
+			<th class="col-1" >#</th >
+			<th class="col-2" >
+				<div class="sortables" >
+					<span ng-click="order = 'name'"
+					      class="fa fa-sort-asc" ></span >
+					<span ng-click="order = '-name'"
+					      class="fa fa-sort-desc" ></span >
+				</div >
+				Name
+			</th >
+			<th class="col-3" >
+				<div class="sortables" >
+					<span ng-click="order = 'email'"
+					      class="fa fa-sort-asc" ></span >
+					<span ng-click="order = '-email'"
+					      class="fa fa-sort-desc" ></span >
+				</div >
+				Email
+			</th >
+			<th class="col-4" >Phone</th >
+		</tr >
+
+		<tr ng-repeat="user in users"
+		    ng-style="{
+							 'background-color': user.email == contacts.selectedUser.email ? 'lightgray' : ''
+						}"
+				ui-sref="edit({email:user.email})" >
+			<td >
+				<img ng-src="{{user.photo|defaultImage:'./avatar.png'}}"
+				     class="img-circle profile-photo"
+				     alt="" />
+			</td >
+			<td >
+				{{ user.name }}</td >
+			<td >{{ user.email }}</td >
+			<td >{{ user.phonenumber }}</td >
+		</tr >
+
+
+	</table >
+
+	<div ng-show="contacts.users.length == 0 && !contacts.isLoading" >
+		<div class="alert alert-info" >
+			<p class="text-center" >No results found for search term '{{ search }}'</p >
+		</div >
+	</div >
+
+	<div class="spinner"
+	     ng-show="contacts.isLoading" >
+		<span us-spinner="{radius:8, width:5, length: 3, lines:9}" ></span >
+
+		<p >Loading...</p >
+	</div >
+
+</div >

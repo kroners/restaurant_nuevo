@@ -1,0 +1,39 @@
+<div class="col-md-4">
+				<img ng-src="{{selectedDish.image | defaultImage:'./avatar.png'}}"
+					alt=""
+					class="img-rounded img-responsive"/>
+			</div>
+			<div class="col-md-8">
+				<h4>{{selectedDish.nombre}}
+					<i class="fa" ng-class="{'fa-female':selectedDish.sex == 'F', 'fa-male': selectedDish.sex == 'M'}"></i>
+				</h4>
+				<b>{{selectedDish.precio}}
+					<i class="fa fa-map-marker"></i>
+				</b>
+				<p>
+					<i class="fa fa-envelope-o"></i>
+					{{selectedDish.calorias}}
+					<br/>
+					<i class="fa fa-gift"></i>
+					{{selectedDish.birthdate | date:"longDate"}}
+				</p>
+</div>
+
+<h4>Solo puedes añadir hasta 3 toppings</h4>
+
+<div class="" ng-repeat="top in extra.toppings"><br/>
+	Topping: {{top.nombre}} <br/>
+	Cantidad: {{top.cantidad}} gramos<br/>
+	Precio: S/.{{top.precio}} <br/>
+	<span><a class="btn btn-sm btn-primary"
+           ng-click="extra.addToppingItem(top)"
+           >
+           Añadir al Carrito
+    </a></span>
+</div>
+<button type="button"
+	        class="btn btn-success btn-sm"
+	        ladda="isDeleting"
+			ng-click="extra.addPlatoCart(plato)">
+	<i class="fa fa-trash"></i>&nbsp;Agregar a Carrito
+</button ><br/>

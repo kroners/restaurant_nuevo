@@ -1,0 +1,72 @@
+
+        <div class="alert alert-warning" role="alert" ng-show="extra.getTotalItems() === 0">
+            Your cart is empty
+        </div>
+
+        <div class="table-responsive col-lg-12" ng-show="extra.getTotalItems() > 0">
+
+            <table class="table table-striped ngCart cart">
+
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Cantidad</th>
+                        <th>Monto</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total:</td>
+                        <td>{{ extra.totalCost() | currency}}</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                <tr ng-repeat="item in extra.items">
+                    <td><span ng-click="extra.removeItemById(item.id)" class="glyphicon glyphicon-remove"></span></td>
+
+                    <td>{{ item.plato.nombre }}
+                        <!-- <span ng-if="item.plato.toppings >= 1"> -->
+                            <span ng-repeat="top in item.toppings">
+                                <br/>{{top.nombre}}<br/>
+                            </span>
+                        <!-- </span> -->
+                    </td>
+                    <td><span class="glyphicon glyphicon-minus" ng-class="{'disabled':item.cantidad==1}"
+                              ng-click="extra.removePlatoCart(item)"></span>&nbsp;&nbsp;
+                        {{ item.cantidad }}&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-plus" ng-click="extra.addPlatoCart(item)"></span></td>
+                    <td>{{ item.plato.precio | currency}}
+                        <!-- <span ng-if="item.plato.toppings >= 1"> -->
+                            <span ng-repeat="top in item.toppings">
+                                <br/>{{top.precio | currency}}
+                            </span>
+                        <!-- </span> -->
+                    </td>
+                    <td>{{ extra.getTotalItemCost(item) | currency }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button"
+                            class="btn btn-success btn-sm"
+                            ng-click="hacerPedido()">
+                            Hacer Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<style>
+    .ngCart.cart span[ng-click] {
+        cursor: pointer;
+    }
+    .ngCart.cart .glyphicon.disabled {
+        color:#aaa;
+    }
+</style>
