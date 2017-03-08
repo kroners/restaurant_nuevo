@@ -54,8 +54,25 @@ api.delete('/ingredient/:ingredientId', OrderCntrl.deleteOrder)
 // rutas para autenticacion y registro de usuario
 const passport = require('passport')
 
-api.get('/profile', passport.authenticationMiddleware(), )
+api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
+    res.redirect('/');
+})
 
+api.post('/login', function(req, res, next) {
+    passport.authenticate('local-login', function(err, user, info) {
+        if (err) {
+            return next(err);
+        }
+        req.logIn(user, function(err) {
+            return res.json(user);
+        });
+    })(req, res, next);
+});
+
+api.get('/logout', function(req, res){
+    req.logout();
+    res.send('Logout Ok');
+});
 
 
 

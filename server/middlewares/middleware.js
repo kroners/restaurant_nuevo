@@ -1,5 +1,5 @@
 // middleware function to see if the user is authenticated
-function authenticationMiddleware () {
+function isLoggedInMiddleware () {
 	return function (req, res, next) {
 		if (req.isAuthenticated()) {
 			console.log('El usuario esta logueado adooooo');
@@ -8,4 +8,8 @@ function authenticationMiddleware () {
 		}
 		res.redirect('/')
 	}
+}
+
+module.exports = {
+	isLoggedInMiddleware
 }
