@@ -2,7 +2,7 @@
 
 const User = require('mongoose').model('User');
 
-updateUser = function (req, res){
+var updateUser = function (req, res){
 	var age = req.body.edad;
     var email = req.body.email;
     var dni = req.body.dni;
@@ -43,30 +43,36 @@ updateUser = function (req, res){
     });
 }
 
-createUser = function (req, res) {
-    var nombre = req.body.nombre;
-    var apellido = req.body.apellido;
-    var dni = req.body.dni;
-    var telefono = req.body.telefono;
-    var imagen = req.body.imagen;
-    var sexo = req.body.sexo;
+var createUser = function (req, res) {
+
+    var age = req.body.edad;
     var email = req.body.email;
     var password = req.body.password;
-    Usuario.exists(email, function (err, user) {
+    var dni = req.body.dni;
+    var sex = req.body.sexo;
+    var first = req.body.nombre;
+    var last = req.body.apellido;
+    var address = req.body.direccion;
+    var city = req.body.ciudad;
+    var phone = req.body.telefono;
+    
+    User.exists(email, function (err, user) {
         if (err) {
             return res.json({ message: err.message, status: "fail", usuario: null });
         }
         if (!user) {
-            let user = new Usuario({
-                nombre: nombre,
-                apellido: apellido,
+            let user = new User({
+                age: age,
+                email: email,
                 dni: dni,
-                sexo: sexo,
-                telefono: telefono,
-                imagen: imagen,
-                local: {
-                    email: email,
-                    password: crypt.hash(password)
+                sex: sex,
+                phone: telefono,
+                address: address,
+                city: city,
+                password: password,
+                name: {
+                    first: first,
+                    last: last
                 }
             });
             user.save(function (err, newUser) {

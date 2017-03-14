@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.use(session({
-	secret: 'mysecretkeyrestaurant',
+	secret: 'mysecretkeyrestaurantapp',
 	resave: true, // al igual que la opcion inferior, para evitar que se creen sesiones no deseadas
 	saveUninitialized: false, // para evitar que se generen sesiones no deseadas
 	store: new MongoStore({ mongooseConnection: mongoose.connection }),
@@ -23,9 +23,11 @@ app.use(session({
 	activeDuration: 50 * 60 * 1000,
 	cookie: { maxAge: 24 * 60 * 60 * 1000 }
 }))
-// uso de passport
+
+// uso de passport - Inicializando passport
 app.use(passport.initialize())  
 app.use(passport.session())  
+
 //uso de cookieParser
 app.use(cookieParser());
 

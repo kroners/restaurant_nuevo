@@ -21,33 +21,50 @@ passport.serializeUser(function(user, done) {
 
 // used to deserialize the user
 passport.deserializeUser(function(id, done) {
-    models.User.find({where: ["id = ?", id]}).then(function(data){
-        done(null, data.dataValues);
+	models.User.findById(id, function (err, user) {
+        done(err, user);
     });
 });
 
-
-passport.use(new LocalStrategy(
-	function(username, password, done) {
-		findUser(username, function(err, user) {
-			if (err) { return done(err) }
-
-			if (!user) { return done(null, false) }
-
-			if (password !== user.password ) {
-				return done(null, false)
-			}
-
-			return done(null, user)
-		})
-	}
-))
-
-// other supporting functions
-
-function findUser (username, callback) {
-  if (username === user.username) {
-    return callback(null, user)
+passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(username, password, done) {
+    User.findOne({ username: username }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
   }
-  return callback(null)
-}
+));
+
+// passport.use(new LocalStrategy(
+// 	function(username, password, done) {
+// 		findUser(username, function(err, user) {
+// 			if (err) { return done(err) }
+
+// 			if (!user) { return done(null, false) }
+
+// 			if (password !== user.password ) {
+// 				return done(null, false)
+// 			}
+
+// 			return done(null, user)
+// 		})
+// 	}
+// ))
+
+// // other supporting functions
+
+// function findUser (username, callback) {
+//   if (username === user.username) {
+//     return callback(null, user)
+//   }
+//   return callback(null)
+// }

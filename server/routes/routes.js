@@ -4,16 +4,17 @@ const express = require('express')
 const api = express.Router()
 
 // variable para ingresar los middleware usados
+// isLoggedInMiddleware servira para validar que el usuario se encuentre con sesion iniciada
 const middleWr = require('../middlewares/middleware')
 
-// rutas para usuario
+// conexion con el User Controller y rutas para usuario
 const UserCntrl = require('../controllers/user')
 
 api.get('/user', UserCntrl.getUsers)
 api.get('/user/:userId', UserCntrl.getUser)
 api.post('/user', UserCntrl.saveUser)
-api.put('/user/:userId', UserCntrl.updateUser)
-api.delete('/user/:userId', UserCntrl.deleteUser)
+api.put('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.updateUser)
+api.delete('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.deleteUser)
 
 // rutas para ingrediente
 const IngredientCntrl = require('../controllers/ingredient')
