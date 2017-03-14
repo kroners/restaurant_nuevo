@@ -12,7 +12,7 @@ const OrderSchema = Schema({
                 quantity:Number
             }]
         }],
-        user: { type: mongoose.Schema.Types.ObjectId, ref: 'Usuario' },
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
         payment: { type: String, default: 'Efectivo' },
         state: {
             type: String,
