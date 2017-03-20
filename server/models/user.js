@@ -9,18 +9,20 @@ const UserSchema = Schema({
 		first: String,
 		last: String
 	},
-	email: String,
+    local: {
+        email: String,
+        password: String,
+    },
 	dni: String,
 	age: Number,
 	sex: String,
-	password: String,
 	address: String,
 	city: String,
 	phone_number: String
 })
 
 UserSchema.statics.exists = function(email, callback){
-    this.findOne({'email': email}, function (err, user){
+    this.findOne({'local.email': email}, function (err, user){
       if(err){
         return callback(err);
       }
@@ -53,7 +55,7 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.methods.comparePassword = function (passw, cb) {
-    bcrypt.compare(passw, this.password, function (err, isMatch) {
+    bcrypt.compare(passw, this.local.password, function (err, isMatch) {
         if (err) {
             return cb(err);
         }

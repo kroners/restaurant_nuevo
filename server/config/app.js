@@ -8,12 +8,16 @@ const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
 
 const app = express()
-const api = require('../routes/routes')
-
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+//uso de cookieParser
+app.use(cookieParser());
 
+const mongoose = require('mongoose')
+// middleware for express session
+// different from passport session. There is only one session, which is handled by express, but
+// passport support 'from behind' the session hadnling by express
 app.use(session({
 	secret: 'mysecretkeyrestaurantapp',
 	resave: true, // al igual que la opcion inferior, para evitar que se creen sesiones no deseadas
@@ -28,10 +32,12 @@ app.use(session({
 app.use(passport.initialize())  
 app.use(passport.session())  
 
-//uso de cookieParser
-app.use(cookieParser());
-
+const path = require('path')
+// set the public folder. we can put in there stylesheets etc
 app.use(express.static(path.join(__dirname, '../../client')))
+
+console.log("ghi");
+const api = require('../routes/routes')
 
 app.use('/', api)
 
