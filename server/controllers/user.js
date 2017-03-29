@@ -58,7 +58,7 @@ var createUser = function (req, res) {
     
     User.exists(email, function (err, user) {
         if (err) {
-            return res.json({ message: err.message, status: "fail", usuario: null });
+            return res.json({ message: err.message, status: "fail", user: null });
         }
         if (!user) {
             let user = new User({
@@ -77,20 +77,42 @@ var createUser = function (req, res) {
             });
             user.save(function (err, newUser) {
                 if (err) {
-                    return res.json({ message: "ERROR_GUARDANDO", status: "fail", usuario: null });
+                    return res.json({ message: "ERROR_GUARDANDO", status: "fail", user: null });
                 }
                 req.session.regenerate(function () {
                     req.session.user = newUser;
                     // next();
                     res.json({
                         status: "ok",
-                        usuario: newUser,
+                        user: newUser,
                         message: "REGISTRADO"
                     });
                 });
             });
         } else {
-            return res.json({ message: "EMAIL_YA_EXISTE", status: "fail", usuario: null });
+            return res.json({ message: "EMAIL_YA_EXISTE", status: "fail", user: null });
         }
     });
+}
+
+var getUsers = function (req, res) {
+    
+    User.find({}, function (err, user) {
+        if (err) {
+            return res.json({ message: "no hay usuarios", status: "fail", users: null });
+        } else {
+            return res.json({ message: "OK", status: "ok", users: users });
+        }
+    });
+}
+
+var getUser = function (req, res) {
+    
+    User.find()
+}
+
+module.exports = {
+    updateUser,
+    createUser,
+    getUsers,
 }

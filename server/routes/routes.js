@@ -53,7 +53,7 @@ api.put('/ingredient/:ingredientId', OrderCntrl.updateOrder)
 api.delete('/ingredient/:ingredientId', OrderCntrl.deleteOrder)
 
 // rutas para autenticacion y registro de usuario
-const passport = require('passport')
+const passport = require('../config/authenticate')
 
 api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
     res.redirect('/');
