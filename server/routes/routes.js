@@ -12,7 +12,7 @@ const UserCntrl = require('../controllers/user')
 
 api.get('/user', UserCntrl.getUsers)
 api.get('/user/:userId', UserCntrl.getUser)
-api.post('/user', UserCntrl.saveUser)
+api.post('/user', UserCntrl.createUser)
 api.put('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.updateUser)
 api.delete('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.deleteUser)
 
@@ -74,7 +74,3 @@ api.get('/logout', function(req, res){
     req.logout();
     res.send('Logout Ok');
 });
-
-
-
-

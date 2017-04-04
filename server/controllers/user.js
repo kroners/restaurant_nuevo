@@ -55,7 +55,7 @@ var createUser = function (req, res) {
     var address = req.body.direccion;
     var city = req.body.ciudad;
     var phone = req.body.telefono;
-    
+
     User.exists(email, function (err, user) {
         if (err) {
             return res.json({ message: err.message, status: "fail", user: null });
@@ -96,7 +96,7 @@ var createUser = function (req, res) {
 }
 
 var getUsers = function (req, res) {
-    
+
     User.find({}, function (err, user) {
         if (err) {
             return res.json({ message: "no hay usuarios", status: "fail", users: null });
@@ -107,12 +107,28 @@ var getUsers = function (req, res) {
 }
 
 var getUser = function (req, res) {
-    
-    User.find()
+
+	User.findById(id).exec(function (err, user) {
+		if (!err) {
+				if (user) {
+					return res.json({ message: "OK", status: "ok", user: user });
+				} else {
+						return res.json({ message: "USUARIO_NO_ENCONTRADO", status: "fail", user: null });
+				}
+		} else {
+				return res.json({ message: err.message, status: "fail", user: null });
+		}
+	});
+}
+
+var deleteUser = function (req, res) {
+
 }
 
 module.exports = {
     updateUser,
     createUser,
     getUsers,
+		getUser,
+		deleteUser
 }
