@@ -129,6 +129,6 @@ module.exports = {
     updateUser,
     createUser,
     getUsers,
-		getUser,
-		deleteUser
+	getUser,
+	deleteUser
 }

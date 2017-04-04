@@ -6,7 +6,8 @@ const Schema = mongoose.Schema
 const IngredientSchema = Schema({
 		name: String,
 		picture: String,
-		quantity: Number
+		quantity: Number,
+		calories: Number
 	},
 	{
 		timestamps: true
