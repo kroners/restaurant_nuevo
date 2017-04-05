@@ -26,7 +26,16 @@ app.use(session({
 	duration: 30 * 60 * 1000,
 	activeDuration: 50 * 60 * 1000,
 	cookie: { maxAge: 24 * 60 * 60 * 1000 }
-}))
+}));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  next();
+
+});
 
 // uso de passport - Inicializando passport
 app.use(passport.initialize())  
@@ -40,5 +49,7 @@ console.log("ghi");
 const api = require('../routes/routes')
 
 app.use('/', api)
+// app.use(app.router);
+// api.initialize(app);
 
 module.exports = app

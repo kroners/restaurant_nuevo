@@ -74,3 +74,5 @@ api.get('/logout', function(req, res){
     req.logout();
     res.send('Logout Ok');
 });
+
+module.exports = api;
