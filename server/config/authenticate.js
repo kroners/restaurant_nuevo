@@ -1,15 +1,15 @@
 'use strict'
 
-const passport = require ('passport')
-const LocalStrategy = require('passport-local').Strategy
+const passport = require ('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-const models = require('../models')
+const models = require('../models/user');
 
-const user = {
-	'username': 'test-user',
-	'password': 'test-pass',
-	'id': 1
-}
+// const user = {
+// 	'username': 'test-user',
+// 	'password': 'test-pass',
+// 	'id': 1
+// }
 
 // passport need to serialize and deserialize user instance from a sesison store in order to support login sessions
 // so that every subsequent request will not contain user credentials. Two methods:

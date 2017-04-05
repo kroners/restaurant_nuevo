@@ -12,6 +12,7 @@ var updateUser = function (req, res){
     var address = req.body.direccion;
     var city = req.body.ciudad;
     var phone = req.body.telefono;
+
     var id = (req.session.user||{})._id;
 
     User.findById(id).exec(function (err, user) {
@@ -108,6 +109,7 @@ var getUsers = function (req, res) {
 
 var getUser = function (req, res) {
 
+    var id = (req.session.user||{})._id;
 	User.findById(id).exec(function (err, user) {
 		if (!err) {
 				if (user) {

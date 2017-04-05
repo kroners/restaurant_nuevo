@@ -21,8 +21,8 @@ const IngredientCntrl = require('../controllers/ingredient')
 
 api.get('/ingredient', IngredientCntrl.getIngredients)
 api.get('/ingredient/:ingredientId', IngredientCntrl.getIngredient)
-api.post('/ingredient', IngredientCntrl.saveIngredient)
-api.put('/ingredient/:ingredientId', IngredientCntrl.updateIngredient)
+api.post('/ingredient', IngredientCntrl.crearIngrediente)
+api.put('/ingredient/:ingredientId', IngredientCntrl.actualizarIngrediente)
 api.delete('/ingredient/:ingredientId', IngredientCntrl.deleteIngredient)
 
 // rutas para topping
@@ -46,11 +46,11 @@ api.delete('/dish/:dishId', DishCntrl.deleteDish)
 // rutas para pedidos
 const OrderCntrl = require('../controllers/order')
 
-api.get('/ingredient', OrderCntrl.getOrders)
-api.get('/ingredient/:ingredientId', OrderCntrl.getOrder)
-api.post('/ingredient', OrderCntrl.saveOrder)
-api.put('/ingredient/:ingredientId', OrderCntrl.updateOrder)
-api.delete('/ingredient/:ingredientId', OrderCntrl.deleteOrder)
+api.get('/ingredient', OrderCntrl.getPedidos)
+api.get('/ingredient/:ingredientId', OrderCntrl.getPedidoById)
+api.post('/ingredient', OrderCntrl.crearPedido)
+api.put('/ingredient/:ingredientId', OrderCntrl.actualizarPedido)
+api.delete('/ingredient/:ingredientId', OrderCntrl.deletePedido)
 
 // rutas para autenticacion y registro de usuario
 const passport = require('../config/authenticate')
