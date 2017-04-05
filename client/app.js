@@ -9,8 +9,8 @@ angular
 		'toaster',
 		'ngAnimate',
 		'ui.router',
-		'ngCookies',
-		'ngMaterial'
+		'ngRoute',
+		'ngCookies'
 ]);
 
 
