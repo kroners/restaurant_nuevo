@@ -64,13 +64,15 @@ var createUser = function (req, res) {
         if (!user) {
             let user = new User({
                 age: age,
-                email: email,
+                local: {
+                    email: email,
+                    password: password,
+                },                
                 dni: dni,
                 sex: sex,
                 phone: telefono,
                 address: address,
                 city: city,
-                password: password,
                 name: {
                     first: first,
                     last: last
@@ -80,15 +82,16 @@ var createUser = function (req, res) {
                 if (err) {
                     return res.json({ message: "ERROR_GUARDANDO", status: "fail", user: null });
                 }
-                req.session.regenerate(function () {
-                    req.session.user = newUser;
-                    // next();
-                    res.json({
-                        status: "ok",
-                        user: newUser,
-                        message: "REGISTRADO"
-                    });
-                });
+                res.json({ status: "ok", user: newUser, message: "USUARIO REGISTRADO" });
+                // req.session.regenerate(function () {
+                //     req.session.user = newUser;
+                //     // next();
+                //     res.json({
+                //         status: "ok",
+                //         user: newUser,
+                //         message: "REGISTRADO"
+                //     });
+                // });
             });
         } else {
             return res.json({ message: "EMAIL_YA_EXISTE", status: "fail", user: null });

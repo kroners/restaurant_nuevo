@@ -12,7 +12,7 @@ const UserCntrl = require('../controllers/user')
 
 api.get('/user', UserCntrl.getUsers)
 api.get('/user/:userId', UserCntrl.getUser)
-api.post('/user', UserCntrl.createUser)
+
 api.put('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.updateUser)
 api.delete('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.deleteUser)
 
@@ -59,6 +59,8 @@ api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
     res.redirect('/');
 })
 
+api.post('/register', UserCntrl.createUser);
+
 api.post('/login', function(req, res, next) {
     passport.authenticate('local-login', function(err, user, info) {
         if (err) {
@@ -69,8 +71,18 @@ api.post('/login', function(req, res, next) {
         });
     })(req, res, next);
 });
+// api.post('/login', 
+//     passport.authenticate('local-login', {
+//     successRedirect: '/',
+//     failureRedirect: '/login'
+// }));
+
+// by default if authentication fails, passport will respond with a 401 Unathorized
+// Strategies must be configured prior using them in route
 
 api.get('/logout', function(req, res){
+    var name = req.user.username;
+    console.log("LOGGIN OUT " + req.user.username);
     req.logout();
     res.send('Logout Ok');
 });

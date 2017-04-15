@@ -3,3 +3,4 @@ npm-debug.log
 libs
 client/libs
 bower_components
+server/config/config.js
