@@ -3,11 +3,12 @@
 const passport = require ('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const models = require('../models/user');
+var User = require('../models/user');
 
 // passport need to serialize and deserialize user instance from a sesison store in order to support login sessions
 // so that every subsequent request will not contain user credentials. Two methods:
 
+module.exports = function(passport) {
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -15,12 +16,12 @@ passport.serializeUser(function(user, done) {
 
 // used to deserialize the user
 passport.deserializeUser(function(id, done) {
-	models.User.findById(id, function (err, user) {
+	User.findById(id, function (err, user) {
         done(err, user);
     });
 });
 
-passport.use(new LocalStrategy({
+passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },
@@ -62,3 +63,4 @@ passport.use(new LocalStrategy({
 //   }
 //   return callback(null)
 // }
+}

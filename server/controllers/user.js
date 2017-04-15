@@ -46,16 +46,18 @@ var updateUser = function (req, res){
 
 var createUser = function (req, res) {
 
-    var age = req.body.edad;
+    // var age = req.body.edad;
     var email = req.body.email;
     var password = req.body.password;
-    var dni = req.body.dni;
-    var sex = req.body.sexo;
+    // var dni = req.body.dni;
+    // var sex = req.body.sexo;
     var first = req.body.nombre;
     var last = req.body.apellido;
-    var address = req.body.direccion;
-    var city = req.body.ciudad;
-    var phone = req.body.telefono;
+    // var address = req.body.direccion;
+    // var city = req.body.ciudad;
+    // var phone = req.body.telefono;
+
+    console.log("Creating user nodejs");
 
     User.exists(email, function (err, user) {
         if (err) {
@@ -63,23 +65,25 @@ var createUser = function (req, res) {
         }
         if (!user) {
             let user = new User({
-                age: age,
+                // age: age,
                 local: {
                     email: email,
                     password: password,
                 },                
-                dni: dni,
-                sex: sex,
-                phone: telefono,
-                address: address,
-                city: city,
+                // dni: dni,
+                // sex: sex,
+                // phone: phone,
+                // address: address,
+                // city: city,
                 name: {
                     first: first,
                     last: last
                 }
             });
             user.save(function (err, newUser) {
+                console.log("saving user");
                 if (err) {
+                    console.log(err);
                     return res.json({ message: "ERROR_GUARDANDO", status: "fail", user: null });
                 }
                 res.json({ status: "ok", user: newUser, message: "USUARIO REGISTRADO" });

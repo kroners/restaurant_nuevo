@@ -12,13 +12,14 @@ const UserSchema = Schema({
     local: {
         email: String,
         password: String,
-    },
-	dni: String,
-	age: Number,
-	sex: String,
-	address: String,
-	city: String,
-	phone_number: String
+    }
+ //    ,
+	// dni: String,
+	// age: Number,
+	// sex: String,
+	// address: String,
+	// city: String,
+	// phone_number: String
 })
 
 UserSchema.statics.exists = function(email, callback){
@@ -35,17 +36,24 @@ UserSchema.statics.exists = function(email, callback){
 };
 
 UserSchema.pre('save', function (next) {
+    console.log("pre-save operations");
     var user = this;
+    console.log(user);
+    console.log(this);
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
+            console.log("presal");
+            console.log(salt);
             if (err) {
+                console.log("salt");
                 return next(err);
             }
-            bcrypt.hash(user.password, salt, function (err, hash) {
+            bcrypt.hash(user.local.password, salt, function (err, hash) {
+                console.log("local.password");
                 if (err) {
                     return next(err);
                 }
-                user.password = hash;
+                user.local.password = hash;
                 next();
             });
         });

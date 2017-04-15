@@ -87,5 +87,11 @@ angular
 				$state.go("list");
 			});
 		}
-	});
+	})
+
+    .controller('ProfileController', function ($scope, $rootScope, UserService) {
+    	$scope.mode = "Perfil";
+
+    	
+    });
 })();

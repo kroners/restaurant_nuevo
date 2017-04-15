@@ -5,14 +5,13 @@ const api = express.Router()
 
 // variable para ingresar los middleware usados
 // isLoggedInMiddleware servira para validar que el usuario se encuentre con sesion iniciada
-const middleWr = require('../middlewares/middleware')
+var middleWr = require('../middlewares/middleware')
 
 // conexion con el User Controller y rutas para usuario
 const UserCntrl = require('../controllers/user')
 
 api.get('/user', UserCntrl.getUsers)
 api.get('/user/:userId', UserCntrl.getUser)
-
 api.put('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.updateUser)
 api.delete('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.deleteUser)
 
@@ -61,12 +60,18 @@ api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
 
 api.post('/register', UserCntrl.createUser);
 
+// this is a custom callback for handling authentication
 api.post('/login', function(req, res, next) {
+    // note that authenticate() is called from within the route handler, rather than being used as route middleware. 
+    // This gives the callback access to the req and res objects through closure.
+    console.log('Inside function login - then passport authenticate');
     passport.authenticate('local-login', function(err, user, info) {
-        if (err) {
-            return next(err);
-        }
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/login'); }
+        
         req.logIn(user, function(err) {
+            console.log("Entering logIn user inside passport");
+            if (err) { return next(err); }
             return res.json(user);
         });
     })(req, res, next);
