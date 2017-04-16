@@ -26,6 +26,7 @@ passport.use('local-login', new LocalStrategy({
     passwordField: 'password'
   },
   function(username, password, done) {
+    console.log("inside passport");
     User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
       if (!user) {

@@ -38,13 +38,12 @@
 			<a ui-sref='orden'>
 				<cart-summary></cart-summary>
 			</a>
-			<div id="sectionLogin">
+			<div id="sectionOptions">
 				<div class="btnIngresar">
-					<a ui-sref="login">Ingresar</a>
+					<a ui-sref="perfil">Perfil</a>
 				</div>
 				<div class="textRegister">
-					<p>¿No tienes una cuenta?</p>
-					<a ui-sref="registrar">¡Únete Ahora!</a>
+					<a ng-click="logout()">Cerrar Sesion</a>
 				</div>
 			</div>
 		</div>

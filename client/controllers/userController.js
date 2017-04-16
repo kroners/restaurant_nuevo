@@ -66,6 +66,12 @@ angular
 		if (!$scope.users.sessionUser){
 			$scope.usuario = $scope.user.sessionUser;
 		}
+
+		$scope.logout = function () {
+			console.log('logging out');
+			$scope.users.logoutUser();
+			$state.go('home');
+		};
 	})
 
     .controller('DetalleUsuarioController', function ($scope, $stateParams, $state, ContactService) {

@@ -17,19 +17,19 @@ angular
 				self.incomingUser = null;
 				self.hasMore = true;
 				// Usuario se registra y tambien se loguea en la bd
-				self.sessionUser.userID = data.usuario._id;
-				self.sessionUser.usuario = data.usuario;
-				self.sessionUser.nombre = data.usuario.nombre;
-				self.sessionUser.apellido = data.usuario.apellido;
-				self.sessionUser.telefono = data.usuario.telefono;
-				self.sessionUser.direccion = data.usuario.direccion;
+				self.sessionUser.userID = data.user._id;
+				self.sessionUser.usuario = data.user;
+				self.sessionUser.nombre = data.user.name.first;
+				self.sessionUser.apellido = data.user.name.last;
+				// self.sessionUser.telefono = data.user.telefono;
+				// self.sessionUser.direccion = data.user.direccion;
 				self.logged = true;
-				$cookies.putObject('usuario', data.usuario);
-				$cookies.put('user_id', data.usuario._id);
-				$cookies.put('user_name', data.usuario.nombre);
-				$cookies.put('user_last', data.usuario.apellido);
-				$cookies.put('user_telf', data.usuario.telefono);
-				$cookies.put('user_dir', data.usuario.direccion);
+				$cookies.putObject('usuario', data.user);
+				$cookies.put('user_id', data.user._id);
+				$cookies.put('user_name', data.user.name.first);
+				$cookies.put('user_last', data.user.name.last);
+				// $cookies.put('user_telf', data.user.telefono);
+				// $cookies.put('user_dir', data.user.direccion);
 				toaster.pop('success', 'Registrado: ' + self.sessionUser.nombre + ' ' + self.sessionUser.apellido);
 				d.resolve()
 			});
@@ -38,23 +38,23 @@ angular
 		'loginUser': function (user){
 			var d = $q.defer();
 			LoginUsuario.save(user).$promise.then(function (data) {
-				if (data.usuario === null) {
+				if (data.user === null) {
 					console.log("NOO");
 				} else {
-					console.log(data.usuario);
-					self.sessionUser.userID = data.usuario._id;
-					self.sessionUser.usuario = data.usuario;
-					self.sessionUser.nombre = data.usuario.nombre;
-					self.sessionUser.apellido = data.usuario.apellido;
-					self.sessionUser.telefono = data.usuario.telefono;
-					self.sessionUser.direccion = data.usuario.direccion;
+					console.log(data.user);
+					self.sessionUser.userID = data.user._id;
+					self.sessionUser.usuario = data.user;
+					self.sessionUser.nombre = data.user.name.first;
+					self.sessionUser.apellido = data.user.name.last;
+					// self.sessionUser.telefono = data.user.telefono;
+					// self.sessionUser.direccion = data.user.direccion;
 					self.logged = true;
-					$cookies.putObject('usuario', data.usuario);
-					$cookies.put('user_id', data.usuario._id);
-					$cookies.put('user_name', data.usuario.nombre);
-					$cookies.put('user_last', data.usuario.apellido);
-					$cookies.put('user_telf', data.usuario.telefono);
-					$cookies.put('user_dir', data.usuario.direccion);
+					$cookies.putObject('usuario', data.user);
+					$cookies.put('user_id', data.user._id);
+					$cookies.put('user_name', data.user.name.first);
+					$cookies.put('user_last', data.user.name.last);
+					// $cookies.put('user_telf', data.user.telefono);
+					// $cookies.put('user_dir', data.user.direccion);
 					console.log(self.sessionUser);
 					toaster.pop('success', 'Sesión Iniciada: ' + self.sessionUser.nombre + ' ' + self.sessionUser.apellido);
 					d.resolve();
