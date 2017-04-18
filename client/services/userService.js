@@ -1,6 +1,6 @@
 angular
     .module('app')
-    .service('UserService', function (Usuario, UpdateUsuario, LoginUsuario, $q, toaster, $cookies) {
+    .service('UserService', function (Usuario, UpdateUsuario, LoginUsuario, LogoutUsuario, $q, toaster, $cookies) {
 
 	var self = {
 		'hasMore': true,
@@ -62,15 +62,20 @@ angular
 			});
 			return d.promise;
 		},
-		'logoutUser': function (){
-			self.sessionUser = {};
-			self.logged = false;
-			$cookies.remove('usuario');
-			$cookies.remove('user_id');
-			$cookies.remove('user_name');
-			$cookies.remove('user_last');
-			$cookies.remove('user_telf');
-			$cookies.remove('user_dir');
+		'logoutUser': function (user){
+			var d = $q.defer();
+			LogoutUsuario.delete(user).$promise.then(function (data) {
+				console.log("Sesion de usuario borrada");
+				self.sessionUser = {};
+				self.logged = false;
+				$cookies.remove('usuario');
+				$cookies.remove('user_id');
+				$cookies.remove('user_name');
+				$cookies.remove('user_last');
+				$cookies.remove('user_telf');
+				$cookies.remove('user_dir');
+			});
+			return d.promise;
 		},
 		'checkUserSession': function () {
 			var userCookie = $cookies.get('usuario');
