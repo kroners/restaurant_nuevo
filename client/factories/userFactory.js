@@ -16,7 +16,7 @@ angular
 angular
     .module('app')
     .factory("LogoutUsuario", function ($resource) {
-        return $resource("http:127.0.0.1:3000/logout");
+    return $resource("http://127.0.0.1:3000/logout");
     })
 
 angular
