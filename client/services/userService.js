@@ -64,7 +64,7 @@ angular
 		},
 		'logoutUser': function (user){
 			var d = $q.defer();
-			LogoutUsuario.save(user).$promise.then(function (data) {
+			LogoutUsuario.get(user).$promise.then(function (data) {
 				console.log("Sesion de usuario borrada");
 				self.sessionUser = {};
 				self.logged = false;
