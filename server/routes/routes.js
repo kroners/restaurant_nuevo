@@ -86,6 +86,7 @@ api.post('/login', function(req, res, next) {
 // Strategies must be configured prior using them in route
 
 api.get('/logout', function(req, res){
+    console.log("loggint out");
     console.log(req.user);
     var name = req.user;
     console.log("LOGGIN OUT " + req.user.username);
