@@ -88,11 +88,24 @@ api.post('/login', function(req, res, next) {
 api.get('/logout', function(req, res){
     console.log("loggint out");
     console.log(req);
-    console.log(req.user);
-    var name = req.user;
-    console.log("LOGGIN OUT " + req.user.username);
-    req.logout();
-    res.send('Logout Ok');
+    // console.log(req.user); // al generarse la sesion en passport , esta no estaria en user sino en session
+    console.log(req.session);
+    // var name = req.user;
+    // console.log("LOGGIN OUT " + req.user.username);
+
+    // se comentara esta solucion por una alternativa
+    // req.logout();
+    // res.send('Logout Ok');
+    req.session.destroy(function (err) {
+        console.log(err);
+        console.log("logging out ......");
+        var getOut = {
+            message: "The session is gone",
+            status: "OK"
+        }
+        // res.redirect('/'); //Inside a callback… bulletproof!
+        res.send(getOut);
+    });
 });
 
 module.exports = api;
