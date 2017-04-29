@@ -28,6 +28,8 @@ passport.use('local-login', new LocalStrategy({
   function(username, password, done) {
     console.log("inside passport");
     User.findOne({ username: username }, function(err, user) {
+      console.log(err);
+      console.log(user);
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });

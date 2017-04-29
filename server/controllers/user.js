@@ -105,7 +105,7 @@ var createUser = function (req, res) {
 
 var getUsers = function (req, res) {
 
-    User.find({}, function (err, user) {
+    User.find({}, function (err, users) {
         if (err) {
             return res.json({ message: "no hay usuarios", status: "fail", users: null });
         } else {

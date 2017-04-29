@@ -22,18 +22,18 @@ const UserSchema = Schema({
 	// phone_number: String
 })
 
-UserSchema.statics.exists = function(email, callback){
-    this.findOne({'local.email': email}, function (err, user){
-      if(err){
-        return callback(err);
-      }
-      if(!user){
-        return callback(null, null);
-      }else if(user){
-        return callback(null, user);
-      }
-    });
-};
+// UserSchema.statics.exists = function(email, callback){
+//     this.findOne({'local.email': email}, function (err, user){
+//       if(err){
+//         return callback(err);
+//       }
+//       if(!user){
+//         return callback(null, null);
+//       }else if(user){
+//         return callback(null, user);
+//       }
+//     });
+// };
 
 UserSchema.pre('save', function (next) {
     console.log("pre-save operations");

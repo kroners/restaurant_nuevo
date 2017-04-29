@@ -87,6 +87,7 @@ api.post('/login', function(req, res, next) {
 
 api.get('/logout', function(req, res){
     console.log("loggint out");
+    console.log(req);
     console.log(req.user);
     var name = req.user;
     console.log("LOGGIN OUT " + req.user.username);
