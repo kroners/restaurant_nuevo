@@ -9,9 +9,13 @@ var User = require('../models/user');
 // so that every subsequent request will not contain user credentials. Two methods:
 
 module.exports = function(passport) {
+
+console.log("inside authenticate.js");
+
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+  // console.log(user);
+  done(null, user.id);
 });
 
 // used to deserialize the user
@@ -23,13 +27,16 @@ passport.deserializeUser(function(id, done) {
 
 passport.use('local-login', new LocalStrategy({
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
+    passReqToCallback: true // allows us to pass back the entire request to the callback
   },
   function(username, password, done) {
     console.log("inside passport");
+    console.log(username);
+    // console.log(password);
     User.findOne({ username: username }, function(err, user) {
-      console.log(err);
-      console.log(user);
+      // console.log(err);
+      // console.log(user);
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });

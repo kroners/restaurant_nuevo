@@ -41,6 +41,7 @@ app.use(session({
 app.use(passport.initialize())  
 app.use(passport.session())  
 
+// configurando y llamando passport
 require('../config/authenticate')(passport)
 
 const path = require('path')
@@ -48,7 +49,7 @@ const path = require('path')
 app.use(express.static(path.join(__dirname, '../../client')))
 
 console.log("ghi");
-const api = require('../routes/routes')//(mongoose)
+let api = require('../routes/routes')(app, passport)//(mongoose)
 
 app.use('/', api)
 // app.use(app.router);

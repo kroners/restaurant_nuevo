@@ -2,6 +2,7 @@
 
 const express = require('express')
 const api = express.Router()
+const mongoose = require('mongoose')
 
 // variable para ingresar los middleware usados
 // isLoggedInMiddleware servira para validar que el usuario se encuentre con sesion iniciada
@@ -52,7 +53,7 @@ api.put('/ingredient/:ingredientId', OrderCntrl.actualizarPedido)
 api.delete('/ingredient/:ingredientId', OrderCntrl.deletePedido)
 
 // rutas para autenticacion y registro de usuario
-const passport = require('../config/authenticate')
+const passport = require('passport')
 
 api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
     res.redirect('/');
