@@ -7,18 +7,20 @@ const mongoose = require('mongoose')
 // variable para ingresar los middleware usados
 // isLoggedInMiddleware servira para validar que el usuario se encuentre con sesion iniciada
 var middleWr = require('../middlewares/middleware')
+const UserCntrl = require('../controllers/user')
+const IngredientCntrl = require('../controllers/ingredient')
+const ToppingCntrl = require('../controllers/topping')
+const DishCntrl = require('../controllers/dish')
+const OrderCntrl = require('../controllers/order')
+const passport = require('passport')
 
 // conexion con el User Controller y rutas para usuario
-const UserCntrl = require('../controllers/user')
-
 api.get('/user', UserCntrl.getUsers)
 api.get('/user/:userId', UserCntrl.getUser)
 api.put('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.updateUser)
 api.delete('/user/:userId', middleWr.isLoggedInMiddleware, UserCntrl.deleteUser)
 
 // rutas para ingrediente
-const IngredientCntrl = require('../controllers/ingredient')
-
 api.get('/ingredient', IngredientCntrl.getIngredients)
 api.get('/ingredient/:ingredientId', IngredientCntrl.getIngredient)
 api.post('/ingredient', IngredientCntrl.crearIngrediente)
@@ -26,8 +28,6 @@ api.put('/ingredient/:ingredientId', IngredientCntrl.actualizarIngrediente)
 api.delete('/ingredient/:ingredientId', IngredientCntrl.deleteIngredient)
 
 // rutas para topping
-const ToppingCntrl = require('../controllers/topping')
-
 api.get('/topping', ToppingCntrl.getToppings)
 api.get('/topping/:toppingId', ToppingCntrl.getTopping)
 api.post('/topping', ToppingCntrl.saveTopping)
@@ -35,8 +35,6 @@ api.put('/topping/:toppingId', ToppingCntrl.updateTopping)
 api.delete('/topping/:toppingId', ToppingCntrl.deleteTopping)
 
 // rutas para platos
-const DishCntrl = require('../controllers/dish')
-
 api.get('/dish', DishCntrl.getDishes)
 api.get('/dish/:dishId', DishCntrl.getDish)
 api.post('/dish', DishCntrl.saveDish)
@@ -44,8 +42,6 @@ api.put('/dish/:dishId', DishCntrl.updateDish)
 api.delete('/dish/:dishId', DishCntrl.deleteDish)
 
 // rutas para pedidos
-const OrderCntrl = require('../controllers/order')
-
 api.get('/ingredient', OrderCntrl.getPedidos)
 api.get('/ingredient/:ingredientId', OrderCntrl.getPedidoById)
 api.post('/ingredient', OrderCntrl.crearPedido)
@@ -53,8 +49,6 @@ api.put('/ingredient/:ingredientId', OrderCntrl.actualizarPedido)
 api.delete('/ingredient/:ingredientId', OrderCntrl.deletePedido)
 
 // rutas para autenticacion y registro de usuario
-const passport = require('passport')
-
 api.get('/profile', middleWr.isLoggedInMiddleware, function(req, res){
     res.redirect('/');
 })

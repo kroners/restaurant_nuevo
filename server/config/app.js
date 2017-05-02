@@ -49,7 +49,7 @@ const path = require('path')
 app.use(express.static(path.join(__dirname, '../../client')))
 
 console.log("ghi");
-let api = require('../routes/routes')(app, passport)//(mongoose)
+let api = require('../routes/routes')
 
 app.use('/', api)
 // app.use(app.router);
