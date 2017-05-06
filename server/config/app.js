@@ -48,8 +48,8 @@ const path = require('path')
 // set the public folder. we can put in there stylesheets etc
 app.use(express.static(path.join(__dirname, '../../client')))
 
-console.log("ghi");
-let api = require('../routes/routes')
+console.log("Before routes");
+var api = require('../routes/routes')
 
 app.use('/', api)
 // app.use(app.router);
