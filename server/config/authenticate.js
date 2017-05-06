@@ -14,13 +14,15 @@ console.log("inside authenticate.js");
 
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
-  // console.log(user);
+  console.log("passport serializeUser");
   done(null, user.id);
 });
 
 // used to deserialize the user
-passport.deserializeUser(function(id, done) {
-	User.findById(id, function (err, user) {
+passport.deserializeUser(function(username, done) {
+  console.log("passport deserializeUser");
+	User.findOne({ username: username }, function (err, user) {
+        console.log("found one");
         done(err, user);
     });
 });

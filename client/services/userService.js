@@ -36,6 +36,7 @@ angular
 			return d.promise;
 		},
 		'loginUser': function (user){
+			console.log("Inside loginUser service");
 			var d = $q.defer();
 			LoginUsuario.save(user).$promise.then(function (data) {
 				if (data.user === null) {
@@ -59,6 +60,9 @@ angular
 					toaster.pop('success', 'Sesión Iniciada: ' + self.sessionUser.nombre + ' ' + self.sessionUser.apellido);
 					d.resolve();
 				}
+			})
+			.catch(function(error){
+				console.log(error);
 			});
 			return d.promise;
 		},
