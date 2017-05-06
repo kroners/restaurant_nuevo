@@ -1,6 +1,7 @@
 'use strict'
 
-const Order = require('mongoose').model('Order');
+// const Order = require('mongoose').model('Order');
+const Order = require('../models/order');
 
 var crearPedido = function(req, res) {
 	var nombre = req.body.nombre;

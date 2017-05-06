@@ -1,6 +1,7 @@
 'use strict'
 
-const Ingredient = require('mongoose').model('Ingredient');
+// const Ingredient = require('mongoose').model('Ingredient');
+const Ingredient = require('../models/ingredient');
 
 var crearIngrediente = function(req, res) {
 	var nombre = req.body.nombre;

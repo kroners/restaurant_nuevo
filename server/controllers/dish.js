@@ -1,6 +1,7 @@
 'use strict'
 
-const Topping = require('mongoose').model('Topping');
+// const Dish = require('mongoose').model('Dish');
+const Dish = require('../models/dish');
 
 var saveDish = function(req, res) {
 	var nombre = req.body.nombre;

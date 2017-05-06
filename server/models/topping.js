@@ -13,3 +13,13 @@ module.exports = function (mongoose) {
 
     return mongoose.model('Topping', toppingSchema);
 }
+
+// const ToppingSchema = Schema({
+//         nombre: String,
+//         ingrediente: { type: mongoose.Schema.Types.ObjectId, ref: 'Ingrediente' },
+//         cantidad: Number,
+//         precio: Number
+//     });
+
+
+// module.exports = mongoose.model('Topping', ToppingSchema)
