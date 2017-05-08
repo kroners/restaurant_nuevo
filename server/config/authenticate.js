@@ -32,18 +32,19 @@ passport.use('local-login', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true // allows us to pass back the entire request to the callback
   },
-  function(username, password, done) {
+  function(req, username, password, done) {
     console.log("inside passport");
     console.log(username);
-    // console.log(password);
-    User.findOne({ username: username }, function(err, user) {
+    console.log(password);
+    console.log(req.body);
+    User.findOne({ 'local.email': username }, function(err, user) {
       // console.log(err);
       // console.log(user);
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
+      if (!user.comparePassword(password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
       return done(null, user);

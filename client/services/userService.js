@@ -39,6 +39,7 @@ angular
 			console.log("Inside loginUser service");
 			var d = $q.defer();
 			LoginUsuario.save(user).$promise.then(function (data) {
+				console.log("After going into back - loginUser service");
 				if (data.user === null) {
 					console.log("NOO");
 				} else {

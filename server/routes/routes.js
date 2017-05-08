@@ -61,8 +61,9 @@ api.post('/login', function(req, res, next) {
     // This gives the callback access to the req and res objects through closure.
     console.log('Inside function login - then passport authenticate');
     passport.authenticate('local-login', function(err, user, info) {
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/login'); }
+        console.log("passing the passport part.");
+        if (err) { console.log("There is error"); return next(err); }
+        if (!user) { console.log("There is no user"); return res.redirect('/login'); }
         
         req.logIn(user, function(err) {
             console.log("Entering logIn user inside passport");

@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
+
 const UserSchema = Schema({
 	name: {
 		first: String,
@@ -12,8 +16,10 @@ const UserSchema = Schema({
     local: {
         email: String,
         password: String,
-    }
- //    ,
+    },
+    loginAttempts: { type: Number, required: true, default: 0 },
+    lockUntil: { type: Number },
+    lastLogin: Date
 	// dni: String,
 	// age: Number,
 	// sex: String,
@@ -41,7 +47,7 @@ UserSchema.pre('save', function (next) {
     console.log(user);
     console.log(this);
     if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
+        bcrypt.genSalt(saltRounds, function (err, salt) {
             console.log("presal");
             console.log(salt);
             if (err) {
