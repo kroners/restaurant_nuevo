@@ -8,6 +8,11 @@ const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const someOtherPlaintextPassword = 'not_bacon';
 
+var // these values can be whatever you want - we're defaulting to a
+    // max of 5 attempts, resulting in a 2 hour lock
+    MAX_LOGIN_ATTEMPTS = 5,
+    LOCK_TIME = 2 * 60 * 60 * 1000;
+
 const UserSchema = Schema({
 	name: {
 		first: String,
@@ -41,6 +46,11 @@ UserSchema.statics.exists = function(email, callback){
     });
 };
 
+UserSchema.virtual('isLocked').get(function() {
+    // check for a future lockUntil timestamp
+    return !!(this.lockUntil && this.lockUntil > Date.now());
+});
+
 UserSchema.pre('save', function (next) {
     console.log("pre-save operations");
     var user = this;
@@ -68,7 +78,7 @@ UserSchema.pre('save', function (next) {
     }
 });
 
-UserSchema.methods.comparePassword = function (passw, cb) {
+UserSchema.methods.comparePassword = function (passw, cb) { // cb -> means callback
     bcrypt.compare(passw, this.local.password, function (err, isMatch) {
         if (err) {
             return cb(err);
@@ -77,4 +87,28 @@ UserSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-module.exports = mongoose.model('User', UserSchema)
+UserSchema.methods.incLoginAttempts = function(cb) {
+    // if we have a previous lock that has expired, restart at 1
+    if (this.lockUntil && this.lockUntil < Date.now()) {
+        return this.update({
+            $set: { loginAttempts: 1 },
+            $unset: { lockUntil: 1 }
+        }, cb);
+    }
+    // otherwise we're incrementing
+    var updates = { $inc: { loginAttempts: 1 } };
+    // lock the account if we've reached max attempts and it's not locked already
+    if (this.loginAttempts + 1 >= MAX_LOGIN_ATTEMPTS && !this.isLocked) {
+        updates.$set = { lockUntil: Date.now() + LOCK_TIME };
+    }
+    return this.update(updates, cb);
+};
+
+// expose enum on the model, and provide an internal convenience reference 
+var reasons = UserSchema.statics.failedLogin = {
+    NOT_FOUND: 0,
+    PASSWORD_INCORRECT: 1,
+    MAX_ATTEMPTS: 3
+};
+
+module.exports = mongoose.model('User', UserSchema);

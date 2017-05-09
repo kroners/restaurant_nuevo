@@ -41,12 +41,23 @@ passport.use('local-login', new LocalStrategy({
       // console.log(err);
       // console.log(user);
       if (err) { return done(err); }
+
       if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
+        return done(null, false, { message: 'Incorrect username.' , reason: User.reasons.failedLogin.NOT_FOUND });
       }
+      
+      if(user.isLocked) {
+        //just increment login attempts if account is already locked
+        return user.incLoginAttemps(function(err) {
+          if (err) return done(err);
+          return done(null, null, User.reasons.failedLogin.MAX_ATTEMPS);
+        });
+      }
+
       if (!user.comparePassword(password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
+      
       return done(null, user);
     });
   }
